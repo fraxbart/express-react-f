@@ -21,11 +21,10 @@ app.use('/', loginRoute)
 app.use('/', postsRoute)
 
 
-mongoose.connect(process.env.DB_URL,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
+mongoose.connect('mongodb+srv://fra:6pxDk2Zb1ZoFY6M4@frank94444.ft2eyzn.mongodb.net/', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Errore di connessione al DB'))
