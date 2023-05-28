@@ -1,40 +1,30 @@
-import mongoose from 'mongoose'
+import  { Schema, model } from "mongoose"
 
-
-const PostSchema = new mongoose.Schema ( {
-    img: {
-        type: String,
-        required: false,
-        default: "https://picsum.photos/1920/1080"
+const PostSchema = new Schema({
+    author:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required:true
     },
 
-    title: {
-        type: String,
-        required: true
+    title:{
+        type:String,
+        required:true,
+        maxLength:50
     },
-
-    content: {
+    text: {
         type: String,
-        required: true
+        required:true,
     },
-
-
-    author: {
-        type: String,
-        required: true
-    },
-
-
-
-    rate: {
-        type: Number,
-        required: false,
-        max: 5,
-        min: 0,
-        default: 0
+    rate:{
+        type:Number,
+        required:false,
+        default:0,
+        min:0,
+        max:5
     }
-})
+},{timestamps:true})
 
-const PostModel = mongoose.model ("Post", PostSchema, "posts");
+const PostModel = model("Post", PostSchema, "posts");
 
-export default PostModel
+export default PostModel;
