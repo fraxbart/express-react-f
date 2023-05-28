@@ -1,38 +1,29 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import cors from 'cors'
-import usersRoute from  './routes/users.js'
-import loginRoute from  './routes/login.js'
-import postsRoute from './routes/posts.js'
-import dotenv from 'dotenv'
-dotenv.config()
+import express from "express"
+import usersRouter from "./routes/users.js";
+import mongoose from "mongoose";
+import loginRouter from "./routes/login.js"
+import postsRouter from "./routes/posts.js"
+import cors from "cors"
 
-const PORT = 5050;
+const port = 5050;
 
 const app = express();
 
-//middleware globali(vengono utilizzati per tutte le rotte)
-app.use(express.json());
-app.use(cors());//abilita il server a ricevere richieste da qualsiasi origine
-
-//rotte
-app.use('/', usersRoute)
-app.use('/', loginRoute)
-app.use('/', postsRoute)
+mongoose.connect('mongodb+srv://fra:6pxDk2Zb1ZoFY6M4@frank94444.ft2eyzn.mongodb.net/')
+    .then(() => {console.log("db connected")})
+    .catch(error => console.log(error))
 
 
-mongoose.connect('mongodb+srv://fra:6pxDk2Zb1ZoFY6M4@frank94444.ft2eyzn.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-const db = mongoose.connection;
+app.use(express.json())
 
-db.on('error', console.error.bind(console, 'Errore di connessione al DB'))
-db.once('open', ()=>{console.log('DB connesso correttamente')})
+app.use(cors());
 
+app.use("/", loginRouter);
 
+app.use("/users", usersRouter);
 
+app.use("/posts", postsRouter)
 
-
-
-app.listen(PORT, ()=>console.log(`Server avviato sulla porta ${PORT}`))
+app.listen(port, () => {
+    console.log("server running on port: " + port)
+})
