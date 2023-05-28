@@ -1,0 +1,39 @@
+#root > nav > div.container > span {
+  color: rgb(42, 209, 23);
+  margin-left: -487px;
+  font-size: 2.00rem;
+  font-weight: bold;
+}
+
+#root > footer > div > div > div > ul > li {
+  color: white;
+  list-style: none;
+}
+
+#root > footer {
+  margin-left: 129px;
+}
+
+#root > nav {
+  margin-top: 25px;
+}
+#root > nav > div {
+  display: flex;
+  width: 142px;
+}
+
+#root > nav > div:nth-child(2) > span {
+  color: white;
+  font-weight: bold;
+}
+
+#root > nav > select {
+  border-radius: 8px;
+  width: 35px;
+  background-color: #27282c;
+  color: white;
+}
+
+#root > div > ul {
+  margin-top: 70px;
+}
