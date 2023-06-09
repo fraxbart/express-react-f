@@ -1,26 +1,30 @@
-GET http://localhost:5050/users
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QwMDNAZXBpY29kZS5pdCIsImlhdCI6MTY4NTk4ODUwNiwiZXhwIjoxNjg2MDc0OTA2fQ.IQNiV57jrOpPpjcJL_udGCv22K3CVTXJmHZOywrxSqY
+#######
 
-############
+GET http://localhost:5050/users
+auth: @token
+#######
 
 POST http://localhost:5050/users HTTP/1.1
 content-type: application/json
 
 {
-     "firstname": "jwt",
-     "lastname": "lastnamejwt",
-      "email": "jwt@jwt.com",
-      "password": "jwt123456",
-      "age": 38
-      
+    "userName": "test4",
+    "email": "test004@epicode.it",
+    "password": "epicode1",
+    "role": "admin"
 }
 
-############
+#######
 
-PATCH http://localhost:5050/users/646667c29e4143c3c28d0442 HTTP/1.1
+POST http://localhost:5050/login HTTP/1.1
 content-type: application/json
 
 {
-     "username": "LilyB",
-    "email": "lily@hotmail.com",
-    "password": "cio"
+    "email": "epicode2@epicode.it",
+    "password": "epicode"
 }
+
+#######
+
+DELETE http://localhost:5050/users/647630f44de3a9595cc770ca HTTP/1.1

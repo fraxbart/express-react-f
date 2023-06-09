@@ -1,37 +1,35 @@
 GET http://localhost:5050/posts
 
-##########
+#######
 
-GET http://localhost:5050/posts/bytitle/dieci
+GET http://localhost:5050/posts/bytitle/post1
 
-
-##########
+#######
 
 POST http://localhost:5050/posts HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Post  ",
-  "img": "https://picsum.photos/1920/1080",
-  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-  "author": "Elisa",
-  "rate": 1
+    "title": "post12",
+    "img": "https://picsum.photos/1920/1080",
+    "content": "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet.",
+    "author": "647dfd4bf43473c646cf846d",
+    "rate": 5
 }
 
-##########
+#######
 
-PATCH http://localhost:5050/posts/6467bfc7a4177e45fd9a28b8 HTTP/1.1
+PATCH http://localhost:5050/posts/646bb0c33a75914c60881419 HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Post numero nove",
-  "img": "https://picsum.photos/1920/1080",
-  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-  "author": "Elisa",
-  "rate": 1
+    "title": "modificato",
+    "author": "epicode@epicode.it",
+    "content": "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet."
 }
 
+#######
 
-##########
+DELETE http://localhost:5050/posts/6478e0e099e13c1a5a5a6805 HTTP/1.1
 
-DELETE http://localhost:5050/posts/254565111 HTTP/1.1
+#######
