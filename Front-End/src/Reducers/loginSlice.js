@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     response: null,
@@ -7,46 +7,46 @@ const initialState = {
 }
 
 export const loginRequest = createAsyncThunk(
-    "login/userLogin",
+    "login/loginRequest",
+
     async (data) => {
         try {
-            const response = await fetch ("http://localhost:5050/login", {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
-            
             })
             return await response.json()
         } catch (error) {
-            if (error) throw new Error ("Errore durante la ricezione dei dati")
+            if (error) throw new Error("Errore durante la ricezione dei dati")
         }
     }
-
 )
 
-const loginSlice = createSlice ({
+const loginSlice = createSlice({
     name: "login",
     initialState,
     extraReducers: builder => {
-        builder 
-        .addCase(loginRequest.pending, state => {
-            state.isLoading = true
-        })
-        .addCase(loginRequest.fulfilled, (state, action) => {
-            state.isLoading = false
-            state.response = action.payload
+        builder
+            .addCase(loginRequest.pending, state => {
+                state.isLoading = true
+            })
 
-            if (action.payload.statusCode === 200) {
-                localStorage.setItem ("loggedIn", JSON.stringify(action.payload))
-            }
-        }) 
+            .addCase(loginRequest.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.response = action.payload.message
 
-        .addCase(loginRequest.rejected, state => {
-            state.isLoading = false
-            state.error = "Errore durante il login"
-        })
+                if (action.payload.statusCode === 200) {
+                    localStorage.setItem("loggedIn", JSON.stringify(action.payload))
+                }
+            })
+
+            .addCase(loginRequest.rejected, state => {
+                state.isLoading = false
+                state.error = "Errore durante il login"
+            })
     }
 })
 
