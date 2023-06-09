@@ -28,11 +28,9 @@ app.use('/', loginRoute)
 app.use('/', postRoute)
 app.use('/', sendEmail)
 
-mongoose.connect(process.env.DB_URL, {
-    //oggetti di configuarazione richiesti da documentazione
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect('mongodb+srv://fra:6pxDk2Zb1ZoFY6M4@frank94444.ft2eyzn.mongodb.net/')
+    .then(() => {console.log("db connected")})
+    .catch(error => console.log(error))
 
 const db = mongoose.connection;
 
