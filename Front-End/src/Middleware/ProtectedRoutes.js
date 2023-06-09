@@ -1,10 +1,25 @@
-import { Outlet } from "react-router-dom";
-import  useSession  from '../hook/useSession.js';
-import Login from '../Pages/Login';
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from "react-router-dom"
+import { Toast } from '../utilities/notifications.js'
+import { Toaster } from "react-hot-toast"
 
-const ProtectedRoutes = () => {
-  const session = useSession();
-  return session ? <Outlet /> : <Login />;
+
+const useAuth = () => {
+    const session = JSON.parse(localStorage.getItem("loggedIn"));
+    return session //togliendo ?.token marco ha risolto
 }
 
-export default ProtectedRoutes;
+//const errorToast = new Toast("Login fallito")
+
+const ProtectedRoutes = () => {
+    const navigate = useNavigate();
+    const isAuthorized = useAuth();
+    useEffect(() => {
+        if (!isAuthorized) {
+            navigate('/')
+        }
+    }, [])
+    return <Outlet /> 
+}
+
+export default ProtectedRoutes
