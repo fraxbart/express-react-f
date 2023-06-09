@@ -1,26 +1,19 @@
-//Salva le cose già viste in un oggetto per non ricaricarle//
-
-const cache = new Map();
-
-// Il map è un oggetto chiave - valore, quindi per identificare la richiesta da chi proviene deve avere un identificativo, per questo si fa tramite indirizzo di richiesta//
+const cache = new Map()
 
 const cacheMiddleware = (req, res, next) => {
-  const { url } = req;
+    const { url } = req
 
-  const cachedResponse = cache.get(url);
-  //se esiste già nell0oggetto questa chiave, riusala//
-  if (cachedResponse) {
-    return res.send(cachedResponse);
-  }
-  //Altrimenti
-  res.sendReponse = res.send;
-  res.send = (body) => {
-    //Url=chiave//
-    cache.set(url, body);
-    res.sendReponse(body);
-  };
+    const cachedResponse = cache.get(url)
 
-  next();
-};
+    if (cachedResponse) { //se nel nostro oggetto esiste questa chiave forniscimela
+        return res.send(JSON.parse(cachedResponse))
 
-export default cacheMiddleware;
+    }
+    res.sendResponse = res.send
+    res.send = (body) => {
+        cache.set(url, body)
+        res.sendResponse(body)
+    }
+    next()
+}
+export default cacheMiddleware
