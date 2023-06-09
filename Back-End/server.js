@@ -1,29 +1,42 @@
-import express from "express"
-import usersRouter from "./routes/users.js";
-import mongoose from "mongoose";
-import loginRouter from "./routes/login.js"
-import postsRouter from "./routes/posts.js"
-import cors from "cors"
+import express from 'express'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import UsersRoute from './routes/users.js'
+import loginRoute from './routes/login.js'
+import postRoute from './routes/posts.js'
+import dotenv from 'dotenv'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path'
+import sendEmail from './routes/sendEmail.js'
 
-const port = 5050;
+dotenv.config()
+
+const PORT = 5050;
 
 const app = express();
 
-mongoose.connect('mongodb+srv://fra:6pxDk2Zb1ZoFY6M4@frank94444.ft2eyzn.mongodb.net/')
-    .then(() => {console.log("db connected")})
-    .catch(error => console.log(error))
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use('/uploads', express.static(path.join(__dirname,'./uploads')))
 
+//middleware Globali utilizzati per tutte le rotte
+app.use(express.json());
+app.use(cors()); //abilita il server a ricevere richieste da qualsiasi origine
 
-app.use(express.json())
+app.use('/', UsersRoute)
+app.use('/', loginRoute)
+app.use('/', postRoute)
+app.use('/', sendEmail)
 
-app.use(cors());
-
-app.use("/", loginRouter);
-
-app.use("/users", usersRouter);
-
-app.use("/posts", postsRouter)
-
-app.listen(port, () => {
-    console.log("server running on port: " + port)
+mongoose.connect(process.env.DB_URL, {
+    //oggetti di configuarazione richiesti da documentazione
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Errore di connessione al DB'))
+db.once('open', () => { console.log('DDB connesso correttamente') })
+
+app.listen(PORT, () => console.log(`Server avviato sulla porta ${PORT}`))
