@@ -1,6 +1,6 @@
 import express from "express"
 import PostModel from "../models/post.js"
-import { body, validationResult } from 'express-validator'
+import { validationResult } from 'express-validator'
 import {v2 as cloudinary} from 'cloudinary'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
 import multer from 'multer'
